@@ -1,0 +1,55 @@
+# ------------------------
+# Node.js (frontend)
+# ------------------------
+node_modules/
+dist/
+.vite/
+.deps/
+*.log
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# ------------------------
+# Python (backend)
+# ------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+.env
+.env.*
+
+# Poetry / pipenv / venv
+.poetry/
+.venv/
+venv/
+Pipfile.lock
+poetry.lock
+
+# ------------------------
+# OS & editor junk
+# ------------------------
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ------------------------
+# Netlify / build tools
+# ------------------------
+netlify/
+netlify.toml
+build/

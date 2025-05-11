@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+wikipedia-api
+nltk
+faiss-cpu
+numpy
+sentence-transformers
+torch
+python-dotenv

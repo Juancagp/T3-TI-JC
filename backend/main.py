@@ -34,6 +34,11 @@ load_vector_store()
 class ScrapeRequest(BaseModel):
     url: str
 
+
+@app.get("/")
+def home():
+    return {"message": "Backend activo"}
+
 @app.post("/scrape")
 async def scrape_article(body: ScrapeRequest):
     try:

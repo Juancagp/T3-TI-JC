@@ -7,3 +7,5 @@ numpy
 sentence-transformers
 torch
 python-dotenv
+google-generativeai
+google

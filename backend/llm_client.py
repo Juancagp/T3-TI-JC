@@ -1,30 +1,27 @@
+import httpx
 import os
-from dotenv import load_dotenv
-from google import genai
 
-load_dotenv()  # esto carga las variables desde .env
+LLM_API_URL = "http://asteroide.ing.uc.cl/api/generate"
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-client = genai.Client(api_key=GEMINI_API_KEY)
-
-def ask_llm_with_context(question: str, context_chunks: list[str]) -> str:
-    """
-    Arma el prompt a partir del contexto + pregunta y llama a Gemini.
-    """
-    context = "\n\n".join(context_chunks)
-
-    prompt = f"""Responde la siguiente pregunta en base al contexto entregado.
-
-    Contexto:
-    {context}
-
-    Pregunta:
-    {question}
-    """
-
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",  # o "gemini-2.0-flash" si prefieres velocidad
-        contents=prompt
+def ask_llm_with_context(question: str, context: list[str]) -> str:
+    prompt = (
+        "Responde en base al siguiente contexto extraído de Wikipedia.\n\n"
+        f"Contexto:\n{''.join(context)}\n\n"
+        f"Pregunta: {question}\n"
     )
 
-    return response.text
+    try:
+        response = httpx.post(
+            LLM_API_URL,
+            json={
+                "model": "integracion",
+                "prompt": prompt,
+                "stream": False
+            },
+            timeout=180  # por si tarda mucho
+        )
+        response.raise_for_status()
+        data = response.json()
+        return data.get("response", "(sin respuesta)")
+    except Exception as e:
+        return f"❌ Error al consultar el modelo: {str(e)}"
